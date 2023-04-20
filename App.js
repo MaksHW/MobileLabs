@@ -1,9 +1,10 @@
 import {Button, Image, StyleSheet, Text, TextInput, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import styled from 'styled-components';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import axios from "axios";
 
 
 const ContainerNews = styled.View`
@@ -123,6 +124,8 @@ alignSelf: center;
 const ImageNews = styled.Image`
 margin-left: 5px;
 alignSelf: center;
+width: 50px;
+height: 50px;
 `;
 
 const ImageFoto = styled.Image`
@@ -143,7 +146,38 @@ textAlign: center;
 const Menul = styled.Image`
 `;
 
+function foto() {
+    const [data, setData] = useState([]);
+    const [zaglyshka, setZag] = useState(0);
+    if(zaglyshka === 0){
+        axios.get('https://raw.githubusercontent.com/MaksHW/MobileLabs/master/for_images_news_and_foto/im.json')
+            .then(function (response) {
+                setData(response.data);
+                setZag(1)
+            })
+            .catch(function (error) {
+            })
+            .then(function (response) {
+            });}
+    return (data)
+}
+
+
 function Main ({navigation}) {
+    const [data, setData] = useState([]);
+    const [zaglyshka, setZag] = useState(0);
+    let im = foto();
+    if(zaglyshka === 0){
+        axios.get('https://raw.githubusercontent.com/MaksHW/MobileLabs/master/news.json')
+            .then(function (response) {
+                setData(response.data);
+                setZag(1)
+            })
+            .catch(function (error) {
+            })
+            .then(function (response) {
+            });}
+    if(zaglyshka === 1){
         return (
         <View>
             <ContainerMenu>
@@ -163,60 +197,61 @@ function Main ({navigation}) {
             <ContainerNews>
                 <NameLab>НОВИНИ</NameLab>
                 <News>
-                    <ImageNews source={require('./img/2.png')}/>
+                    <ImageNews source={{uri:im.one}}/>
                     <COnttext>
-                    <Text>Заголовок</Text>
-                    <Text>Дата</Text>
-                    <Text>Текст</Text>
+                    <Text>{data.movies[0].title}</Text>
+                    <Text>{data.movies[0].releaseYear}</Text>
+                    <Text>{data.title}</Text>
                     </COnttext>
                 </News>
                 <News>
-                    <ImageNews source={require('./img/2.png')}/>
+                    <ImageNews source={{uri:im.one}}/>
                     <COnttext>
-                        <Text>Заголовок</Text>
-                        <Text>Дата</Text>
-                        <Text>Текст</Text>
+                        <Text>{data.movies[0].title}</Text>
+                        <Text>{data.movies[0].releaseYear}</Text>
+                        <Text>{data.title}</Text>
                     </COnttext>
                 </News>
                 <News>
-                    <ImageNews source={require('./img/2.png')}/>
+                    <ImageNews source={{uri:im.two}}/>
                     <COnttext>
-                        <Text>Заголовок</Text>
-                        <Text>Дата</Text>
-                        <Text>Текст</Text>
+                        <Text>{data.movies[1].title}</Text>
+                        <Text>{data.movies[1].releaseYear}</Text>
+                        <Text>{data.title}</Text>
                     </COnttext>
                 </News>
                 <News>
-                    <ImageNews source={require('./img/2.png')}/>
+                    <ImageNews source={{uri:im.three}}/>
                     <COnttext>
-                        <Text>Заголовок</Text>
-                        <Text>Дата</Text>
-                        <Text>Текст</Text>
+                        <Text>{data.movies[2].title}</Text>
+                        <Text>{data.movies[2].releaseYear}</Text>
+                        <Text>{data.title}</Text>
                     </COnttext>
                 </News>
                 <News>
-                    <ImageNews source={require('./img/2.png')}/>
+                    <ImageNews source={{uri:im.four}}/>
                     <COnttext>
-                        <Text>Заголовок</Text>
-                        <Text>Дата</Text>
-                        <Text>Текст</Text>
+                        <Text>{data.movies[3].title}</Text>
+                        <Text>{data.movies[3].releaseYear}</Text>
+                        <Text>{data.title}</Text>
                     </COnttext>
                 </News>
                 <News>
-                    <ImageNews source={require('./img/2.png')}/>
+                    <ImageNews source={{uri:im.five}}/>
                     <COnttext>
-                        <Text>Заголовок</Text>
-                        <Text>Дата</Text>
-                        <Text>Текст</Text>
+                        <Text>{data.movies[4].title}</Text>
+                        <Text>{data.movies[4].releaseYear}</Text>
+                        <Text>{data.title}</Text>
                     </COnttext>
                 </News>
             </ContainerNews>
             <NameStyd>Линник Максим ІПЗ19-3</NameStyd>
         </View>
     );
-}
+}}
 
 function Foto ({navigation}) {
+    let im = foto();
     return (
         <View>
             <ContainerMenu>
@@ -236,16 +271,16 @@ function Foto ({navigation}) {
             <NameFot>ГАЛЕРЕЯ</NameFot>
             <ContainerFotoP>
                 <ContainerFoto>
-                <ImageFoto source={require('./img/2.png')}/>
-                <ImageFoto source={require('./img/2.png')}/>
-                    <ImageFoto source={require('./img/2.png')}/>
-                    <ImageFoto source={require('./img/2.png')}/>
+                    <ImageFoto source={{uri:im.one}}/>
+                    <ImageFoto source={{uri:im.one}}/>
+                    <ImageFoto source={{uri:im.two}}/>
+                    <ImageFoto source={{uri:im.two}}/>
                 </ContainerFoto>
                 <ContainerFoto>
-                    <ImageFoto source={require('./img/2.png')}/>
-                    <ImageFoto source={require('./img/2.png')}/>
-                    <ImageFoto source={require('./img/2.png')}/>
-                    <ImageFoto source={require('./img/2.png')}/>
+                    <ImageFoto source={{uri:im.three}}/>
+                    <ImageFoto source={{uri:im.four}}/>
+                    <ImageFoto source={{uri:im.five}}/>
+                    <ImageFoto source={{uri:im.five}}/>
                 </ContainerFoto>
             </ContainerFotoP>
 
